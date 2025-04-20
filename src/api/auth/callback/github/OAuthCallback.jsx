@@ -16,7 +16,7 @@ const OAuthCallback = ({ setIsLoggedIn }) => {
       alert(`GitHub Login Failed: ${error_description || error}`);
       navigate('/');
     } else if (code) {
-      fetch(`/api/auth/callback/github?code=${code}`)
+      fetch(`https://kanbanreact-0v44--3001--fb22cd3d.local-corp.webcontainer.io/api/auth/callback/github?code=${code}`)
         .then((res) => res.json())
         .then((data) => {
           console.log('Logged in user:', data);
