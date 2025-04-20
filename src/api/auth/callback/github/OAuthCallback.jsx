@@ -6,10 +6,17 @@ const OAuthCallback = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const error = params.get('error');
+    const errorDescription = params.get('error_description');
+    const errorUri = params.get('error_uri');
     const code = params.get('code');
 
-    if (code) {
-      fetch(`/api/auth/callback/github?code=${code}`) // <--- Calls your backend
+    if (error) {
+      console.error('GitHub OAuth Error:', error, errorDescription, errorUri);
+      alert(`GitHub Login Failed: ${error_description || error}`);
+      navigate('/');
+    } else if (code) {
+      fetch(`/api/auth/callback/github?code=${code}`)
         .then((res) => res.json())
         .then((data) => {
           console.log('Logged in user:', data);
@@ -22,7 +29,7 @@ const OAuthCallback = ({ setIsLoggedIn }) => {
           navigate('/');
         });
     } else {
-      console.log('No code received from GitHub.');
+      console.log('No code or error received from GitHub.');
       navigate('/');
     }
   }, [params, setIsLoggedIn, navigate]);
