@@ -30,7 +30,10 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
   };
 
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    const redirectUri = 'https://kanbanreact-0v44--5173--fb22cd3d.local-corp.webcontainer.io/oauth-callback';
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
+    window.location.href = githubAuthUrl;
   };
 
   const handleLogout = () => {
