@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  padding: 0;
+  margin: 0;
+  @apply bg-white text-gray-900; /* Default light mode */
+}
+
+/* Add custom dark mode styles */
+body.dark {
+  @apply bg-gray-900 text-white; /* Dark mode styles */
+}
