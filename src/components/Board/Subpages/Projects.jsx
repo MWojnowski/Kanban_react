@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-function Projects({ projects, setFile }) {
+const Projects = ({ projects, setFile }) => {
   const navigate = useNavigate();
 
   const handleClick = (projectName) => {

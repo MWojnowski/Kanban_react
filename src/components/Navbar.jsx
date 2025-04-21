@@ -4,7 +4,7 @@ import { Moon, Sun, SquareKanban } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
-export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
@@ -80,3 +80,5 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn }) {
     </nav>
   );
 }
+
+export default Navbar;

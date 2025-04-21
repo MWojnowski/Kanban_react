@@ -3,13 +3,13 @@ import Sidebar from './elements/Sidebar';
 
 
 
-function ProfilePage({projects,setProjects,isLoggedIn}) {
+const ProfilePage = ({projects,setProjects,isLoggedIn}) => {
 
   if (!isLoggedIn) return <Navigate to="/" replace />;
 
   return (
     <div className="flex">
-      <Sidebar setProjects={setProjects} projects={projects} />
+      <Sidebar setProjects={setProjects} projects={projects}/>
       <Outlet />
     </div>
   );
