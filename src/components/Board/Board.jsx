@@ -10,7 +10,7 @@ const Board = () => {
   const [newColumnName, setNewColumnName] = useState('');
 
   useEffect(() => {
-    fetch('./Board/Projects/board_data.csv')
+    fetch('/Projects/board_data.csv')
       .then((res) => res.text())
       .then((text) => {
         if (text.startsWith('<!DOCTYPE html')) {

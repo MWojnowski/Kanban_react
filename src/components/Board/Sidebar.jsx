@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Routes, Route, Navigate } from 'react-router-dom';
-import Board from './Board';
-// import Projects from './Projects';
+import { Link } from 'react-router-dom';
 
-const Sidebar = (isLoggedIn) => {
+
+const Sidebar = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    fetch('/Projects/')
+    fetch('./Projects/')
       .then((res) => res.text())
       .then((html) => {
         const parser = new DOMParser();
@@ -18,9 +17,6 @@ const Sidebar = (isLoggedIn) => {
         setProjects(links);
       });
   }, []);
-
-  if (!isLoggedIn) return <Navigate to="/" replace />;
-
   return (
     <div className="flex h-screen">
       <div className="w-64 bg-gray-800 text-white p-4 space-y-4">
