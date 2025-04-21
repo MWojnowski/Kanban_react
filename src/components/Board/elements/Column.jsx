@@ -86,7 +86,7 @@ const Column = ({
               <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                style={{ minHeight: '50px' }}
+                style={{ minHeight: '100px' }}
               >
                 {tasks.map((task, index) => (
                   <Draggable key={task.id} draggableId={task.id} index={index}>

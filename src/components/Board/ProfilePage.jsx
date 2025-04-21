@@ -1,16 +1,15 @@
-import {Navigate} from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Board from './Board';
+import { Navigate, Outlet } from 'react-router-dom';
+import Sidebar from './elements/Sidebar';
 
-function ProfilePage({isLoggedIn}) {
 
- if (!isLoggedIn) return <Navigate to="/" replace />;
+function ProfilePage({ isLoggedIn }) {
+  if (!isLoggedIn) return <Navigate to="/" replace />;
 
   return (
-    <>
-      <Sidebar/>
-      <Board/>
-    </>
+    <div className="flex">
+      <Sidebar />
+      <Outlet />
+    </div>
   );
 }
 
