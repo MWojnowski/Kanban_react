@@ -181,10 +181,8 @@ const Board = ({file}) => {
         .join(',');
     csvRows.push(headerRow);
 
-    // Determine the maximum number of tasks across all columns
     const maxTasks = Math.max(...columnOrder.map(columnId => (tasks[columnId] || []).length));
 
-    // Create data rows
     for (let i = 0; i < maxTasks; i++) {
       const dataRow = columnOrder
           .map(columnId => {
@@ -198,7 +196,7 @@ const Board = ({file}) => {
     const csvContent = csvRows.join('\n');
 
     try {
-      const response = await fetch('http://localhost:5000/api/update-board-file', { // Use the correct server URL
+      const response = await fetch('http://localhost:5000/api/update-board-file', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -222,9 +220,9 @@ const Board = ({file}) => {
   };
 
   return (
-    <div className="flex-1 overflow-x-auto px-10">
+    <div className="flex flex-col flex-1 overflow-x-auto px-10">
 
-      <div className="flex items-center justify-center pt-5 mb-6 gap-4">
+      <div className="flex items-center justify-center pt-5 gap-4">
         <h1 className="text-4xl font-extrabold dark:text-white">
           {projectName}
         </h1>
@@ -240,7 +238,7 @@ const Board = ({file}) => {
         <Droppable droppableId="board" direction="horizontal" type="COLUMN">
           {(provided) => (
             <div
-              className="flex overflow-x-auto gap-8 mt-4"
+              className="flex h-full overflow-x-auto gap-8 mt-4"
               ref={provided.innerRef}
               {...provided.droppableProps}
               style={{ minWidth: '100%' }}
@@ -264,10 +262,10 @@ const Board = ({file}) => {
           )}
         </Droppable>
       </DragDropContext>
-      <div className="flex items-center justify-center pt-5 my-10 gap-4 hover:text-blue-600 dark:hover:text-blue-400 transition" onClick={saveToCSV}>
+      <div className="flex items-center justify-center pt-5 my-5 gap-4 hover:text-blue-600 dark:hover:text-blue-400 transition" onClick={saveToCSV}>
         <Save size={40} />
         <h1 className="text-4xl font-extrabold">
-          Save {projectName}
+          Save
         </h1>
       </div>
     </div>

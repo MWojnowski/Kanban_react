@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react';
 
 const AddColumnForm = ({ newColumnName, setNewColumnName, addColumn }) => {
   return (
-    <div className="text-center mt-8">
+    <div className="text-center mt-3">
       <input
         className="border p-2 rounded-md dark:bg-gray-600 w-64"
         type="text"
