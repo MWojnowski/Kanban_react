@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -9,9 +9,16 @@ import Projects from './components/Board/Subpages/Projects';
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(()=>{
+    const savedLoginStatus = localStorage.getItem('isLoggedIn');
+    return savedLoginStatus ? JSON.parse(savedLoginStatus) : false;
+  });
   const [projects,setProjects] = useState([])
   const [file,setFile] = useState('board_data.csv')
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
   return (
     <>
