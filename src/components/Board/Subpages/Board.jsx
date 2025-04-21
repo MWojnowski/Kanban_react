@@ -3,6 +3,7 @@ import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import Column from '../elements/Column';
 import AddColumnForm from '../elements/AddColumnForm';
 import { useLocation } from 'react-router-dom';
+import {Save} from 'lucide-react'
 
 const Board = ({file}) => {
   const [columnOrder, setColumnOrder] = useState([]);
@@ -166,12 +167,68 @@ const Board = ({file}) => {
     }
   };
 
+  const saveToCSV = async () => {
+    let csvRows = [];
+
+    // Create the header row dynamically from columnOrder
+    const headerRow = columnOrder
+        .map(columnId =>
+            columnId
+                .replace(/([a-z])([A-Z])/g, '$1 $2')
+                .replace(/_/g, ' ')
+                .toUpperCase()
+        )
+        .join(',');
+    csvRows.push(headerRow);
+
+    // Determine the maximum number of tasks across all columns
+    const maxTasks = Math.max(...columnOrder.map(columnId => (tasks[columnId] || []).length));
+
+    // Create data rows
+    for (let i = 0; i < maxTasks; i++) {
+      const dataRow = columnOrder
+          .map(columnId => {
+            const task = (tasks[columnId] || [])[i];
+            return task ? task.content.replace(/"/g, '""') : '';
+          })
+          .join(',');
+      csvRows.push(dataRow);
+    }
+
+    const csvContent = csvRows.join('\n');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/update-board-file', { // Use the correct server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: fileName,
+          csvData: csvContent,
+        }),
+      });
+
+      if (response.ok) {
+        console.log(`File ${fileName} updated successfully!`);
+      } else {
+        console.error(`Failed to update ${fileName}.`);
+        const errorData = await response.json();
+        console.error('Error details:', errorData);
+      }
+    } catch (error) {
+      console.error('There was an error sending the update request:', error);
+    }
+  };
+
   return (
     <div className="flex-1 overflow-x-auto px-10">
 
-      <h1 className="text-4xl font-extrabold text-center pt-5 dark:text-white mb-6">
-        {projectName}
-      </h1>
+      <div className="flex items-center justify-center pt-5 mb-6 gap-4">
+        <h1 className="text-4xl font-extrabold dark:text-white">
+          {projectName}
+        </h1>
+      </div>
 
       <AddColumnForm
         newColumnName={newColumnName}
@@ -207,7 +264,14 @@ const Board = ({file}) => {
           )}
         </Droppable>
       </DragDropContext>
+      <div className="flex items-center justify-center pt-5 my-10 gap-4 hover:text-blue-600 dark:hover:text-blue-400 transition" onClick={saveToCSV}>
+        <Save size={40} />
+        <h1 className="text-4xl font-extrabold">
+          Save {projectName}
+        </h1>
+      </div>
     </div>
+
   );
 };
 
