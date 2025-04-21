@@ -29,11 +29,14 @@ function Projects({ projects, setProjects }) {
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   File: {project}
                 </p>
-                <button
-                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Open Project
-                </button>
+              <a
+                href={`/Projects/${project}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                Download
+              </a>
               </div>
             ))}
           </div>
