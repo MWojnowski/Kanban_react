@@ -167,9 +167,9 @@ const Board = ({file}) => {
   };
 
   return (
-    <div className="flex-1 overflow-x-auto p-6">
+    <div className="flex-1 overflow-x-auto px-10">
 
-      <h1 className="text-4xl font-extrabold text-center text-gray-900 dark:text-white mb-6">
+      <h1 className="text-4xl font-extrabold text-center pt-5 dark:text-white mb-6">
         {projectName}
       </h1>
 

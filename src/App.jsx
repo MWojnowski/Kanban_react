@@ -25,7 +25,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <Router >
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        <main className="flex-1 h-full">
+        <main className="flex flex-col flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={

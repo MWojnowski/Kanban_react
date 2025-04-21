@@ -8,7 +8,7 @@ const ProfilePage = ({projects,setProjects,isLoggedIn}) => {
   if (!isLoggedIn) return <Navigate to="/" replace />;
 
   return (
-    <div className="flex">
+    <div className="max-h-full flex-1 flex">
       <Sidebar setProjects={setProjects} projects={projects}/>
       <Outlet />
     </div>

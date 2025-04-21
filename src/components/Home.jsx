@@ -5,7 +5,7 @@ import { Button } from './ui/Button';
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center  bg-gray-150 dark:bg-gray-900 text-gray-800 dark:text-white p-4">
+    <div className="h-full flex-1 flex flex-col items-center justify-center  bg-gray-150 dark:bg-gray-900 text-gray-800 dark:text-white p-4">
       <div className="text-center mb-8">
         <SquareKanban className="w-24 h-24 mx-auto mb-4" />
         <h1 className="text-5xl font-bold mb-4">Welcome to Kanban App</h1>
