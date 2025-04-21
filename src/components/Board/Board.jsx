@@ -1,24 +1,59 @@
-import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import Column from './elements/Column';
+import React, { useState, useEffect } from 'react';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
+import Column from './elements/Column.jsx';
 import AddColumnForm from './elements/AddColumnForm.jsx';
 
-const Profile = ({ isLoggedIn }) => {
-  const initialData = {
-    toDo: [
-      { id: 'task-1', content: 'Task 1' },
-      { id: 'task-2', content: 'Task 2' },
-    ],
-    inProgress: [{ id: 'task-3', content: 'Task 3' }],
-    done: [{ id: 'task-4', content: 'Task 4' }],
-  };
-
-  const initialColumnOrder = Object.keys(initialData);
-  const [columnOrder, setColumnOrder] = useState(initialColumnOrder);
-  const [tasks, setTasks] = useState(initialData);
+const Board = () => {
+  const [columnOrder, setColumnOrder] = useState([]);
+  const [tasks, setTasks] = useState({});
   const [newTaskInputs, setNewTaskInputs] = useState({});
   const [newColumnName, setNewColumnName] = useState('');
+
+  useEffect(() => {
+    fetch('./Board/Projects/board_data.csv')
+      .then((res) => res.text())
+      .then((text) => {
+        if (text.startsWith('<!DOCTYPE html')) {
+          console.error('Expected CSV, but got HTML. File may not exist or is misconfigured.');
+          return;
+        }
+  
+        const rows = text
+          .trim()
+          .split('\n')
+          .map((row) => row.split(',').map((cell) => cell.trim()));
+  
+        if (rows.length < 1) return;
+  
+        const columnNames = rows[0];
+        const numColumns = columnNames.length;
+  
+        const tasksByColumn = {};
+        columnNames.forEach((col) => {
+          const colId = col.toLowerCase().replace(/\s+/g, '');
+          tasksByColumn[colId] = [];
+        });
+  
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          for (let colIndex = 0; colIndex < numColumns; colIndex++) {
+            const taskContent = row[colIndex];
+            if (taskContent) {
+              const colName = columnNames[colIndex];
+              const colId = colName.toLowerCase().replace(/\s+/g, '');
+              tasksByColumn[colId].push({
+                id: `task-${Date.now()}-${Math.random()}`,
+                content: taskContent,
+              });
+            }
+          }
+        }
+  
+        setTasks(tasksByColumn);
+        setColumnOrder(columnNames.map((name) => name.toLowerCase().replace(/\s+/g, '')));
+      });
+  }, []);
+  
 
   const handleNewTaskInputChange = (columnId, value) => {
     setNewTaskInputs((prevInputs) => ({
@@ -95,8 +130,8 @@ const Profile = ({ isLoggedIn }) => {
       )
         return;
 
-      const sourceColumn = tasks[source.droppableId];
-      const destinationColumn = tasks[destination.droppableId];
+      const sourceColumn = Array.from(tasks[source.droppableId]);
+      const destinationColumn = Array.from(tasks[destination.droppableId]);
       const [movedTask] = sourceColumn.splice(source.index, 1);
       destinationColumn.splice(destination.index, 0, movedTask);
 
@@ -116,9 +151,6 @@ const Profile = ({ isLoggedIn }) => {
       setColumnOrder(newColumnOrder);
     }
   };
-
-  if (!isLoggedIn) return <Navigate to="/" replace />;
-
   return (
     <>
       <AddColumnForm
@@ -159,4 +191,4 @@ const Profile = ({ isLoggedIn }) => {
   );
 };
 
-export default Profile;
+export default Board;

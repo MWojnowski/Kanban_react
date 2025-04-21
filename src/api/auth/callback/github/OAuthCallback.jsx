@@ -6,6 +6,7 @@ const OAuthCallback = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(params.get('code'))
     const error = params.get('error');
     const errorDescription = params.get('error_description');
     const errorUri = params.get('error_uri');
@@ -13,16 +14,23 @@ const OAuthCallback = ({ setIsLoggedIn }) => {
 
     if (error) {
       console.error('GitHub OAuth Error:', error, errorDescription, errorUri);
-      alert(`GitHub Login Failed: ${error_description || error}`);
+      alert(`GitHub Login Failed: ${errorDescription || error}`);
       navigate('/');
     } else if (code) {
       fetch(`https://kanbanreact-0v44--3001--fb22cd3d.local-corp.webcontainer.io/api/auth/callback/github?code=${code}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log('Logged in user:', data);
-          setIsLoggedIn(true);
-          console.log('isLoggedIn set to true');
-          navigate('/profile');
+          console.log('Logged in user data:', data); 
+          if (data && data.user && data.user.login) {
+            console.log('Logged in username:', data.user.login); 
+            setIsLoggedIn(true);
+            console.log('isLoggedIn set to true');
+            navigate('/profile');
+          } else {
+            console.error('Could not extract username from data:', data);
+            setIsLoggedIn(true); 
+            navigate('/profile');
+          }
         })
         .catch((err) => {
           console.error('Login failed', err);

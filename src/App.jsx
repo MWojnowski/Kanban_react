@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Profile from './components/Board/Profile';
-import OAuthCallback from './api/auth/callback/github/OAuthCallback';
+import ProfilePage from './components/Board/ProfilePage'
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,9 +15,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/profile"
-            element={<Profile isLoggedIn={isLoggedIn} />}
+            element={<ProfilePage isLoggedIn={isLoggedIn} />}
           />
-           <Route path="/oauth-callback" element={<OAuthCallback setIsLoggedIn={setIsLoggedIn} />} />
         </Routes>
       </Router>
     </>
