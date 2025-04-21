@@ -4,7 +4,7 @@ import Column from '../elements/Column';
 import AddColumnForm from '../elements/AddColumnForm';
 import { useLocation } from 'react-router-dom';
 
-const Board = () => {
+const Board = ({file}) => {
   const [columnOrder, setColumnOrder] = useState([]);
   const [tasks, setTasks] = useState({});
   const [newTaskInputs, setNewTaskInputs] = useState({});
@@ -12,7 +12,14 @@ const Board = () => {
   
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const fileName = queryParams.get('file') || 'board_data.csv';
+  const fileName = queryParams.get('file') || file;
+
+  const projectName = fileName
+    .replace('.csv', '')
+    .replace(/[_-]/g, ' ')
+    .toUpperCase();
+
+
   useEffect(() => {
     fetch(`/Projects/${fileName}`)
       .then((res) => res.text())
@@ -161,6 +168,11 @@ const Board = () => {
 
   return (
     <div className="flex-1 overflow-x-auto p-6">
+
+      <h1 className="text-4xl font-extrabold text-center text-gray-900 dark:text-white mb-6">
+        {projectName}
+      </h1>
+
       <AddColumnForm
         newColumnName={newColumnName}
         setNewColumnName={setNewColumnName}

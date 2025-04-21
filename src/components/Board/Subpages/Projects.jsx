@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-function Projects({ projects, setProjects }) {
+function Projects({ projects, setFile }) {
   const navigate = useNavigate();
 
   const handleClick = (projectName) => {
+    setFile(projectName);
     navigate(`/profile/board?file=${projectName}`);
   };
 

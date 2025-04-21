@@ -11,6 +11,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [projects,setProjects] = useState([])
+  const [file,setFile] = useState('board_data.csv')
 
   return (
     <>
@@ -19,9 +20,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<ProfilePage projects={projects} setProjects={setProjects} isLoggedIn={isLoggedIn} />}>
-            <Route index element={<Board />} />
-            <Route path="board" element={<Board />} />
-            <Route path="projects" element={<Projects projects={projects} setProjects={setProjects}/>} />
+            <Route index element={<Board  file={file}/>} />
+            <Route path="board" element={<Board file={file}/>} />
+            <Route path="projects" element={<Projects projects={projects} setFile={setFile}/>} />
           </Route>
         </Routes>
       </Router>
