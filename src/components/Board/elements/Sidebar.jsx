@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
-  const [projects, setProjects] = useState([]);
+const Sidebar = ({projects,setProjects}) => {
 
   useEffect(() => {
     fetch('/Projects/manifest.json')
@@ -34,16 +33,6 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
-          Detected
-        </h3>
-        <ul className="text-sm space-y-1 text-gray-600 dark:text-gray-400">
-          {projects.map((p, i) => (
-            <li key={i}>{p.replace('.csv', '')}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

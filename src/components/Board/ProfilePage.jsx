@@ -2,12 +2,14 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Sidebar from './elements/Sidebar';
 
 
-function ProfilePage({ isLoggedIn }) {
+
+function ProfilePage({projects,setProjects,isLoggedIn}) {
+
   if (!isLoggedIn) return <Navigate to="/" replace />;
 
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar setProjects={setProjects} projects={projects} />
       <Outlet />
     </div>
   );

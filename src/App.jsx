@@ -8,17 +8,20 @@ import Projects from './components/Board/Subpages/Projects';
 
 
 function App() {
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [projects,setProjects] = useState([])
+
   return (
     <>
       <Router>
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<ProfilePage isLoggedIn={isLoggedIn} />}>
+          <Route path="/profile" element={<ProfilePage projects={projects} setProjects={setProjects} isLoggedIn={isLoggedIn} />}>
             <Route index element={<Board />} />
             <Route path="board" element={<Board />} />
-            <Route path="projects" element={<Projects />} />
+            <Route path="projects" element={<Projects projects={projects} setProjects={setProjects}/>} />
           </Route>
         </Routes>
       </Router>
