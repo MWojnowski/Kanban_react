@@ -13,10 +13,9 @@ body {
   padding: 0;
   margin: 0;
   height: 100vh;
-  @apply bg-white text-gray-900; /* Default light mode */
+  @apply bg-white text-gray-900;
 }
 
-/* Add custom dark mode styles */
 body.dark {
-  @apply bg-gray-900 text-white; /* Dark mode styles */
+  @apply bg-gray-900 text-white;
 }

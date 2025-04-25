@@ -170,7 +170,6 @@ const Board = ({file}) => {
   const saveToCSV = async () => {
     let csvRows = [];
 
-    // Create the header row dynamically from columnOrder
     const headerRow = columnOrder
         .map(columnId =>
             columnId
@@ -262,11 +261,13 @@ const Board = ({file}) => {
           )}
         </Droppable>
       </DragDropContext>
-      <div className="flex items-center justify-center pt-5 my-5 gap-4 hover:text-blue-600 dark:hover:text-blue-400 transition" onClick={saveToCSV}>
+      <div className="flex items-center justify-center pt-5 my-5 gap-4">
+        <button className='flex w-fit hover:text-blue-600 dark:hover:text-blue-400 transition gap-2'  onClick={saveToCSV}>
         <Save size={40} />
-        <h1 className="text-4xl font-extrabold">
+        <h1 className="text-4xl w-fit font-extrabold">
           Save
         </h1>
+        </button>
       </div>
     </div>
 
