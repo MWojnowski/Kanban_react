@@ -148,17 +148,14 @@ const Board = ({file}) => {
       const startColumnId = source.droppableId;
       const endColumnId = destination.droppableId;
 
-      // Create a copy of the tasks state
       const newTasks = { ...tasks };
 
-      // Moving within the same column
       if (startColumnId === endColumnId) {
         const columnTasks = Array.from(newTasks[startColumnId]);
         const [movedTask] = columnTasks.splice(source.index, 1);
         columnTasks.splice(destination.index, 0, movedTask);
         newTasks[startColumnId] = columnTasks;
       }
-      // Moving between columns
       else {
         const startColumnTasks = Array.from(newTasks[startColumnId]);
         const endColumnTasks = Array.from(newTasks[endColumnId] || []);
