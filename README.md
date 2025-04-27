@@ -8,6 +8,7 @@ https://kanbanreact-0v44--(5000->5173)--d4eba4a9.local-corp.webcontainer.io
     Element navbar zawiera: 
 - Odnośnik w nazwie do strony głównej
 - Odnośnik Home przekierowywujący na stronę główną
+- Guzik do zmiany motywu na jasny/ciemnt
 - Odnośnik do loginu
     - jeżeli użytkownik jest zalogowany rownież odnośnik do profilu
 ### Home

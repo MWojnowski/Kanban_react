@@ -145,16 +145,30 @@ const Board = ({file}) => {
       )
         return;
 
-      const sourceColumn = Array.from(tasks[source.droppableId]);
-      const destinationColumn = Array.from(tasks[destination.droppableId]);
-      const [movedTask] = sourceColumn.splice(source.index, 1);
-      destinationColumn.splice(destination.index, 0, movedTask);
+      const startColumnId = source.droppableId;
+      const endColumnId = destination.droppableId;
 
-      setTasks({
-        ...tasks,
-        [source.droppableId]: sourceColumn,
-        [destination.droppableId]: destinationColumn,
-      });
+      // Create a copy of the tasks state
+      const newTasks = { ...tasks };
+
+      // Moving within the same column
+      if (startColumnId === endColumnId) {
+        const columnTasks = Array.from(newTasks[startColumnId]);
+        const [movedTask] = columnTasks.splice(source.index, 1);
+        columnTasks.splice(destination.index, 0, movedTask);
+        newTasks[startColumnId] = columnTasks;
+      }
+      // Moving between columns
+      else {
+        const startColumnTasks = Array.from(newTasks[startColumnId]);
+        const endColumnTasks = Array.from(newTasks[endColumnId] || []);
+        const [movedTask] = startColumnTasks.splice(source.index, 1);
+        endColumnTasks.splice(destination.index, 0, movedTask);
+        newTasks[startColumnId] = startColumnTasks;
+        newTasks[endColumnId] = endColumnTasks;
+      }
+
+      setTasks(newTasks);
     } else if (type === 'COLUMN') {
       if (!destination) return;
       if (source.index === destination.index) return;
