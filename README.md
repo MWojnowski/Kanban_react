@@ -1,5 +1,8 @@
 # Projekt Kanban 
 - logowanie jest jedynie useStatem, stackblitz nie przepuścił mi integracji GitHuba.
+
+## Przed uruchomieniem nalezy pobrac pakiet
+    npm i
 ## Przy uruchomieniu domyślnie otwiera się port 5000 należy go zmienić na 5173
 https://kanbanreact-0v44--(5000->5173)--d4eba4a9.local-corp.webcontainer.io
 - Logowanie zaqpisuje się przy odswieżeniu strony.
