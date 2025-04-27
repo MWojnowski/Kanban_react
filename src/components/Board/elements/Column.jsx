@@ -27,7 +27,7 @@ const Column = ({
     <Draggable draggableId={columnId} index={index}>
       {(draggableProvided) => (
         <div
-          className="bg-white text-gray-800 p-6 rounded-lg shadow-lg dark:bg-gray-700 dark:text-white w-80 flex-shrink-0"
+          className="bg-white text-gray-800 p-6 rounded-lg shadow-lg dark:bg-gray-700 dark:text-white w-80 flex-shrink-0 flex flex-col"
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
@@ -86,7 +86,7 @@ const Column = ({
               <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
-                style={{ minHeight: '100px' }}
+                className="h-full overflow-y-auto"
               >
                 {tasks.map((task, index) => (
                   <Draggable key={task.id} draggableId={task.id} index={index}>
