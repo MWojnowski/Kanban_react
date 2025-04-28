@@ -1,5 +1,5 @@
 # Projekt Kanban 
-- logowanie jest jedynie useStatem, stackblitz nie przepuścił mi integracji GitHuba.
+- logowanie jest jedynie useStatem na potrzeby projektu, możliwa późniejsza zmiana na logownie z gitHub'em
 
 ## Przed uruchomieniem nalezy pobrac pakiet
     npm i
